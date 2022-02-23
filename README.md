@@ -18,19 +18,20 @@ conda install r=3.6  ##The verson of R must >=3.6
 
 ###make meta files
 The format of meta files are like following:
-#with repeats and without input:
+#with repeats and without inputs:
 sampleA	sampleA_rep1	C1
 sampleB	sampleA_rep1	C2
 sampleC	sampleA_rep1	C3
 ...
-#with repeats and without input:
+#with repeats and without inputs:
 sampleA	sampleA_rep1	C1
 sampleA	sampleA_rep2	C2
 sampleB	sampleB_rep1	C3
 sampleB	sampleB_rep2	C4
 ...
-#with repeats and with input:
+#with repeats and with inputs:
 sampleA	sampleA_rep1	C1
-sampleA	sampleA_rep2	C2
-sampleA	sampleB_rep1	C3
-sampleA	sampleB_rep2	C4
+sampleA	sampleA_rep1_control	N1
+sampleA	sampleB_rep2	C2
+sampleA	sampleB_rep2_control	N1
+# the first column 
