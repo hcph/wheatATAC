@@ -17,7 +17,7 @@ conda install -c bioconda bedtools
 conda install r=3.6  ##The verson of R must >=3.6
 
 ###make meta files
-The format of meta files are like following:
+The format of meta files are like following. The first column lists the sample name, the second column are the repeats information of samples, and the last column lists the corresponding prefix of the fastq files.
 #with repeats and without inputs:
 sampleA	sampleA_rep1	C1
 sampleB	sampleA_rep1	C2
@@ -34,4 +34,5 @@ sampleA	sampleA_rep1	C1
 sampleA	sampleA_rep1_control	N1
 sampleA	sampleB_rep2	C2
 sampleA	sampleB_rep2_control	N1
-# the first column 
+
+###
