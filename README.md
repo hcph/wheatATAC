@@ -33,7 +33,7 @@ conda install r=3.6  ##The verson of R must >=3.6
 
 ##2.1 make meta files
 
-The format of meta files are like following. The first column lists the sample name, the second column are the repeats information of samples, and the last column lists the corresponding prefix of the fastq files.
+The format of meta files are like following. The first column lists the sample name, the second column are the repeats information of samples, and the last column lists the corresponding prefix of the fastq files. The file we named ATAC.txt here.
 
 #with repeats and without inputs:
 
