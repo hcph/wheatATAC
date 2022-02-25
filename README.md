@@ -87,9 +87,9 @@ sh peakcall.sh
 
 ###data valuation
 
-The process of data valuation contains file convert for IGV visualization, FRiP and SPOT calculation, TSS enrichment analysis, peak annotation, samples correlation analysis and signal comparasion. Run:
-
 sh valuation.sh
+
+#The process of data valuation contains file convert for IGV visualization, FRiP and SPOT calculation, TSS enrichment analysis, peak annotation, samples correlation analysis and signal comparasion.
 
 
 
