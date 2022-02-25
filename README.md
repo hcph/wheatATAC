@@ -46,7 +46,9 @@ sh fileprepare.sh
 ##2.4 peak calling, idr analysis and consistent peaks acquirment
 sh peakcall.sh
 
-
+###data valuation
+The process of data valuation contains file convert for IGV visualization, FRiP and SPOT calculation, TSS enrichment analysis, peak annotation, samples correlation analysis and signal comparasion.
+sh valuation.sh
 
 
 
