@@ -52,9 +52,6 @@ sh valuation.sh
 
 
 
-
-
-
-
+[README.txt](https://github.com/HeChao7021/wheatATAC/files/8139677/README.txt)
 
 
