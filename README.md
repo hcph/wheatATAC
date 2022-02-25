@@ -37,6 +37,7 @@ sampleA	sampleB_rep2_control	N1
 
 ###2.analysis the ATAC-seq dataset
 #2.1 trim, alignment, remove unmapped and duplicate reads
+sh align.sh
 
 
 
