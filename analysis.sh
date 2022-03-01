@@ -2,7 +2,6 @@
 
 dir=$1
 file=$2
-cd $dir
 
 mkdir $dir/meta
 cd $dir/meta
