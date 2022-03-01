@@ -30,6 +30,7 @@ conda install -c bioconda bedtools
 conda install r=3.6  ##The verson of R must >=3.6
 
 ###2.analysis the ATAC-seq dataset
+sh analysis.sh  dir
 
 ##2.1 make meta files
 
@@ -70,19 +71,15 @@ sampleA	sampleB_rep2_control	N1
 
 ##2.2 trim, alignment, remove unmapped and duplicate reads
 
-sh align.sh
 
 #note that the adapter file is user definded, please use vi align.sh to replace it.
 
 
 ##2.3 prepare file for IDR analysis
 
-sh fileprepare.sh
-
 
 ##2.4 peak calling, idr analysis and consistent peaks acquirment
 
-sh peakcall.sh
 
 
 ###data valuation
