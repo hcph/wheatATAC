@@ -30,7 +30,8 @@ conda install -c bioconda bedtools
 conda install r=3.6  ##The verson of R must >=3.6
 
 ###2.analysis the ATAC-seq dataset
-sh analysis.sh  dir
+
+Usage: sh analysis.sh  dir
 
 ##2.1 make meta files
 
