@@ -1,7 +1,6 @@
 #/usr/bin/bash
 
 dir=$1
-file=$2
 
 mkdir $dir/meta
 cd $dir/meta
