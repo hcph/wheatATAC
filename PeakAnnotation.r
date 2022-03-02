@@ -5,7 +5,8 @@ args<-commandArgs(T)
 dir = args[1]
 num = length(args)-1
 
-name=args[2:num]
+name=read.table(paste0(dir,"/meta/macs2.meta"))
+name=name[,1]
 #plot
 pdf("Peak_Annotation.pdf",width=10)
 for (i in name){
