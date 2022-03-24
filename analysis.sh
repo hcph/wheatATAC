@@ -1,6 +1,8 @@
 #/usr/bin/bash
 
 dir=$1
+trimmomatic_dir=$2
+db=$3
 
 mkdir $dir/meta
 cd $dir/meta
@@ -9,6 +11,40 @@ awk -vOFS="\t" '{a[$2]=$3;if(!($2~/_control/)){b[$2]=$1;}} \
 END{for(i in b){print b[i],i,a[i],a[i"_control"]}}' \
 $dir/meta/ATAC.txt | sort -k 1 -k 2 \
 > $dir/meta/ATAC.macs2.meta
+
+#trim
+mkdir $dir/fq
+mv *fq.gz $dir/fq
+cd $dir/fq
+cut -f 1 ../meta/ATAC-seq.txt | while read i; do
+trimmomatic PE -phred33 "$i"_R1.fq.gz "$i"_R2.fq.gz  "$i"_R1_paired.fq.gz "$i"_R1_unpaired.fq.gz "$i"_R2_paired.fq.gz "$i"_R2_unpaired.fq.gz ILLUMINACLIP:$trimmomatic_dir/NexteraPE-PE.fa:2:30:10:8:TRUE LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 2>trim.log
+done
+
+#align
+mkdir ../align
+cd ../align
+cut -f 1 ../meta/ATAC-seq.txt | while read i; do
+bowtie2 --no-unal --threads 10 --sensitive -k 3 -q --phred33 --rg-id '"$i"_R1_"$i"_R2' --rg 'SM:"$i"_R1_"$i"_R2\tPL:Illumina\tLB:Illumina_1_8' -x $db/IWGSC_v1 -1 ../fq/"$i"_R1_paired.fq.gz -2 ../fq/"$i"_R2_paired.fq.gz -S "$i".sam 2> "$i"_R1_"$i"_R2.log | samtools sort -@ 4 -m 8g -o "$i".sort.bam
+done
+
+#filter
+cd ../align
+cut -f 1 ../meta/ATAC-seq.txt | while read i; do
+samtools sort -@ 4 -m 8g -o "$i".sort.bam "$i".bam
+samtools index "$i".sort.bam
+samtools flagstat "$i".sort.bam >"$i".sort.flagstat.qc
+#samtools过滤未必对上&MAPQ<5的reads
+samtools view -F 1804 -q 1 -b "$i".sort.bam >"$i".filter.bam
+samtools index "$i".filter.bam
+picard MarkDuplicates \
+      I="$i".filter.bam \
+      O="$i".dupmark.bam \
+   REMOVE_DUPLICATES=true \
+      M=marked_dup_metrics.txt   
+samtools view -@ 8 -F 1804 -b "$i".dupmark.bam > "$i".final.bam
+samtools index -c "$i".final.bam
+rm "$i".dupmark.bam
+done
 
 #prepare for files using idr
 #self-pseudo-replicates
