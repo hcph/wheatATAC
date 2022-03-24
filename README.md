@@ -31,7 +31,8 @@ conda install r=3.6  ##The verson of R must >=3.6
 
 ###2.analysis the ATAC-seq dataset
 
-Usage: sh analysis.sh  dir
+Usage: sh analysis.sh  work_dir trimmomatic_adapter_dir wheat_reference_dir
+notice: The fastq file are in *_R1_fq.gz
 
 ##2.1 make meta files
 
