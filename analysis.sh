@@ -30,7 +30,6 @@ done
 #filter
 cd ../align
 cut -f 1 ../meta/ATAC-seq.txt | while read i; do
-samtools sort -@ 4 -m 8g -o "$i".sort.bam "$i".bam
 samtools index "$i".sort.bam
 samtools flagstat "$i".sort.bam >"$i".sort.flagstat.qc
 #samtools过滤未必对上&MAPQ<5的reads
