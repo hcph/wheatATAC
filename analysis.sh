@@ -24,7 +24,7 @@ done
 mkdir ../align
 cd ../align
 cut -f 1 ../meta/ATAC-seq.txt | while read i; do
-bowtie2 --no-unal --threads 10 --sensitive -k 3 -q --phred33 --rg-id '"$i"_R1_"$i"_R2' --rg 'SM:"$i"_R1_"$i"_R2\tPL:Illumina\tLB:Illumina_1_8' -x $db/IWGSC_v1 -1 ../fq/"$i"_R1_paired.fq.gz -2 ../fq/"$i"_R2_paired.fq.gz -S "$i".sam 2> "$i"_R1_"$i"_R2.log | samtools sort -@ 4 -m 8g -o "$i".sort.bam
+bowtie2 --no-unal --threads 10 --sensitive -k 3 -q --phred33 --rg-id '"$i"_R1_"$i"_R2' --rg 'SM:"$i"_R1_"$i"_R2\tPL:Illumina\tLB:Illumina_1_8' -x $db/IWGSC_v1 -1 ../fq/"$i"_R1_paired.fq.gz -2 ../fq/"$i"_R2_paired.fq.gz 2> "$i"_R1_"$i"_R2.log | samtools sort -@ 4 -m 8g -o "$i".sort.bam
 done
 
 #filter
