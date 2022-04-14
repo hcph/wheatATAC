@@ -33,7 +33,7 @@ cut -f 1 ../meta/ATAC-seq.txt | while read i; do
 samtools index "$i".sort.bam
 samtools flagstat "$i".sort.bam >"$i".sort.flagstat.qc
 #samtools过滤未必对上&MAPQ<5的reads
-samtools view -F 1804 -q 1 -b "$i".sort.bam >"$i".filter.bam
+samtools view -F 1804 -q 5 -b "$i".sort.bam >"$i".filter.bam
 samtools index "$i".filter.bam
 picard MarkDuplicates \
       I="$i".filter.bam \
