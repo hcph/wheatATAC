@@ -10,7 +10,7 @@ cut -f 3 $dir/meta/ATAC-seq.txt | sort | uniq > ../meta/ATAC.SRX.list
 awk -vOFS="\t" '{a[$2]=$3;if(!($2~/_control/)){b[$2]=$1;}} \
 END{for(i in b){print b[i],i,a[i],a[i"_control"]}}' \
 $dir/meta/ATAC-seq.txt | sort -k 1 -k 2 \
-> $dir/meta/ATAC.macs2.meta
+> $dir/meta/macs2.meta
 
 #trim
 mkdir $dir/fq
