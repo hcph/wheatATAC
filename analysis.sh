@@ -109,7 +109,7 @@ OUT=${Rep}
 awk -vOFS="\t"  '(/^@SQ/){match($0,/SN:(\w+)/,SN); match($0,/LN:([0-9]+)/,LN);print SN[1],LN[1]}'> chrom.sizes
 GS=$(awk 'BEGIN{GS=0}{GS+=$2}END{print int(0.85*GS)}' chrom.sizes) 
 [[ ! -f ${OUT}.peaks.bed ]] && \
-macs2 callpeak -f BAM -t $ChIP -c $Ctrl -n ${OUT} -g $GS -p 1e-2 --mfold 2 20 --nomodel --to-large; 
+macs2 callpeak -f BAM -t $ChIP -c $Ctrl -n ${OUT} -g $GS -p 1e-2 --mfold 2 20 --shift -75 --extsize 150 --nomodel --to-large; 
 maxS=$(sort -k 5gr,5gr ${OUT}_peaks.narrowPeak | head -n 1 | cut -f 5); 
 minS=$(sort -k 5gr,5gr ${OUT}_peaks.narrowPeak | tail -n 1 | cut -f 5); 
 awk -vOFS='\t' -vm=$minS -vM=$maxS '{$5=int((($5-m)*(1000-10)/(M-m))+10); print}' ${OUT}_peaks.narrowPeak > ${OUT}.peaks.bed; \
@@ -126,7 +126,7 @@ OUT=${Rep}_self_${pRep}
 [[ ! -f chrom.sizes ]] && samtools view -H $ChIP | awk -vOFS="\t" '(/^@SQ/){match($0,/SN:(\w+)/,SN); match($0,/LN:([0-9]+)/,LN);print SN[1],LN[1]}' > chrom.sizes
 GS=$(awk 'BEGIN{GS=0}{GS+=$2}END{print int(0.85*GS)}' chrom.sizes) 
 [[ ! -f ${OUT}.peaks.bed ]] && \
-macs2 callpeak -f BAM -t $ChIP -c $Ctrl -n ${OUT} -g $GS -p 1e-2  --mfold 2 20 --nomodel --to-large;  \
+macs2 callpeak -f BAM -t $ChIP -c $Ctrl -n ${OUT} -g $GS -p 1e-2  --mfold 2 20 --nomodel --shift -75 --extsize 150 --to-large;  \
 done
 done
 
@@ -144,7 +144,7 @@ match($0,/LN:([0-9]+)/,LN);print SN[1],LN[1]}' \
 > chrom.sizes
 GS=$(awk 'BEGIN{GS=0}{GS+=$2}END{print int(0.85*GS)}' chrom.sizes) 
 [[ ! -f ${OUT}.peaks.bed ]] && \
-macs2 callpeak -f BAM -t $ChIP -c $Ctrl -n ${OUT} -g $GS -p 1e-2   --mfold 2 20 --nomodel --to-large; \
+macs2 callpeak -f BAM -t $ChIP -c $Ctrl -n ${OUT} -g $GS -p 1e-2   --mfold 2 20 --nomodel --shift -75 --extsize 150 --to-large; \
 mv ${OUT}_peaks.narrowPeak ${OUT}.peaks.bed
 done
 done
@@ -165,7 +165,7 @@ tSF=$(samtools idxstats $Ctrl | awk '!(/*/){TL+=$3} END{print TL/10e+6}')
 SF=$(echo "$cSF $tSF" | awk '($1>$2){print $2} ($1<=$2){print $1}')
 GS=$(awk '{GS+=$2}END{print int(0.85*GS)}' chrom.sizes) 
 [[ ! -f ${OUT}.peaks.bed ]] && \
-macs2 callpeak -f BAM -t $ChIP -c $Ctrl -n ${OUT} -g $GS -p 1e-2   --mfold 2 20 --nomodel    -B --SPMR --to-large; \
+macs2 callpeak -f BAM -t $ChIP -c $Ctrl -n ${OUT} -g $GS -p 1e-2   --mfold 2 20 --nomodel  --shift -75 --extsize 150 -B --SPMR --to-large; \
 maxS=$(sort -k 5gr,5gr ${OUT}_peaks.narrowPeak | head -n 1 | cut -f 5); \
 minS=$(sort -k 5gr,5gr ${OUT}_peaks.narrowPeak | tail -n 1 | cut -f 5); \
 awk -vOFS='\t' -vm=$minS -vM=$maxS '{$5=int((($5-m)*(1000-10)/(M-m))+10); print}' ${OUT}_peaks.narrowPeak > ${OUT}.peaks.bed; \
