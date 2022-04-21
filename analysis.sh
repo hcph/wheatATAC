@@ -199,7 +199,7 @@ awk -vFS="\t" -vOFS="\t" '{a[$1]=a[$1]?a[$1]"\t"$2:$2;} END{for(i in a){print i,
 | sort -k 1 -k 2 | tee ../meta/idr.meta \
 | awk -vFS="\t" -vDIR=$pDIR '(NF>2){for(i=2;i<=NF;i++) \
 {for(j=i+1;j<=NF;j++){
-idr --samples "DIR"/"$i".peaks.bed "DIR"/"$j".peaks.bed --output-file  ../macs2/idr/"$i"_overlapped_peaks.txt --plot}}}' 
+idr --samples "DIR"/"$i".peaks.bed "DIR"/"$j".peaks.bed --output-file  ../macs2/idr/"$i"_"$j"_overlapped_peaks.txt --plot}}}' 
 
 #Run IDR analysis on self-pseudo-replicates
 pDIR=$dir/macs2
@@ -221,11 +221,11 @@ cut -f 1,2,3 $dir/meta/macs2.meta | while read TF Rep MORE; do
         nps_Self=$( awk '$5 >= 540 {print $0}' $oDIR/${Rep}_self_overlapped_peaks.txt | wc -l )
         # original replicate threshold
         max_nps_Rep=
-        if [[ $(ls $oDIR/${TF}*${Rep}*_overlapped_peaks.txt \
+        if [[ $(ls $oDIR/${Rep}*_overlapped_peaks.txt \
                 2> /dev/null | wc -l) -gt 0 ]]; then
             echo "*** $TF with replicates" 1>&2
             numPeaks=
-            for cmp in $oDIR/${TF}*${Rep}*_overlapped_peaks.txt; do
+            for cmp in $oDIR/${Rep}*_overlapped_peaks.txt; do
                 numPeaks="$numPeaks "$( awk '$5 >= 705 \
                     {print $0}' $cmp | wc -l )
             done
