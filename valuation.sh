@@ -31,7 +31,7 @@ done
 
 #spp
 cut -f 3 $dir/meta/macs2.meta | while read Trmt ; do
-Rscript /disk2/users/che/phantompeakqualtools-1.2/run_spp.R -c=$Trmt.final.bam -filtchr="chrUn" -savp -out=$Trmt.spp
+Rscript phantompeakqualtools-1.2/run_spp.R -c=$Trmt.final.bam -filtchr="chrUn" -savp -out=$Trmt.spp
 done
 
 ##annotation_deeptools
