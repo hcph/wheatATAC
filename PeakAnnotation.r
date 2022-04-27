@@ -8,6 +8,7 @@ num = length(args)-1
 name=read.table(paste0(dir,"/meta/macs2.meta"))
 name=name[,1]
 #plot
+cols = c("#ED1C24","#22B14C","#FFC90E","#3f48CC")
 pdf("Peak_Annotation.pdf",width=10)
 for (i in name){
   x<-read.table(paste0(i,"_gene.peaks.txt"))
