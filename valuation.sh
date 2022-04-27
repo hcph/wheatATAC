@@ -37,9 +37,9 @@ done
 ##annotation_deeptools
 cut -f 1 ../meta/macs2.meta | uniq | while read i;
 do
-bedtools closest -D ref -t all -mdb all  -a "$i".peaks.bed -b geneR1.bed >new/"$i".txt
-awk '{if($16=="-") print $1"\t"$14"\t"$16"\t"$4"\t"0-$17"\t"$13-$2-$10}' new/"$i".txt | uniq  >new/minus.txt
-awk '{if($16=="+") print $1"\t"$14"\t"$16"\t"$4"\t"0-$17"\t"$2+$10-$12}' new/"$i".txt | uniq >new/plus.txt
+bedtools closest -D ref -t all -mdb all  -a "$i".peaks.bed -b gene.bed >"$i".txt
+awk '{if($16=="-") print $1"\t"$14"\t"$16"\t"$4"\t"0-$17"\t"$13-$2-$10}' "$i".txt | uniq  >minus.txt
+awk '{if($16=="+") print $1"\t"$14"\t"$16"\t"$4"\t"0-$17"\t"$2+$10-$12}' new/"$i".txt | uniq >plus.txt
 cat minus.txt plus.txt >"$i"_gene.peaks.txt
 done
 
