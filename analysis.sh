@@ -198,8 +198,7 @@ pDIR=$dir/macs2
 awk -vFS="\t" -vOFS="\t" '{a[$1]=a[$1]?a[$1]"\t"$2:$2;} END{for(i in a){print i,a[i]}}' ../meta/macs2.meta \
 | sort -k 1 -k 2 | tee ../meta/idr.meta \
 | awk -vFS="\t" -vDIR=$pDIR '(NF>2){for(i=2;i<=NF;i++) \
-{for(j=i+1;j<=NF;j++){
-idr --samples "DIR"/"$i".peaks.bed "DIR"/"$j".peaks.bed --output-file  ../macs2/idr/"$i"_"$j"_overlapped_peaks.txt --plot}}}' 
+{for(j=i+1;j<=NF;j++){print "idr --samples "DIR"/"$i".peaks.bed "DIR"/"$j".peaks.bed --output-file  ../macs2/idr/"$i"_"$j"_overlapped_peaks.txt --plot"}}}' 
 
 #Run IDR analysis on self-pseudo-replicates
 pDIR=$dir/macs2
