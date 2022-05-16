@@ -193,7 +193,7 @@ rm chrom.sizes
 done
 
 #run IDR analysis on original replicates
-mkdir -p $dir/macs2/idr && cd $dir/bin/idr-Code/
+mkdir -p $dir/macs2/idr
 pDIR=$dir/macs2
 awk -vFS="\t" -vOFS="\t" '{a[$1]=a[$1]?a[$1]"\t"$2:$2;} END{for(i in a){print i,a[i]}}' ../meta/macs2.meta \
 | sort -k 1 -k 2 | tee ../meta/idr.meta \
