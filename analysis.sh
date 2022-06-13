@@ -30,11 +30,11 @@ done
 #filter
 cd ../align
 cut -f 1 ../meta/ATAC-seq.txt | while read i; do
-samtools index "$i".sort.bam
+samtools index -c "$i".sort.bam
 samtools flagstat "$i".sort.bam >"$i".sort.flagstat.qc
 #samtools过滤未必对上&MAPQ<5的reads
 samtools view -F 1804 -q 5 -b "$i".sort.bam >"$i".filter.bam
-samtools index "$i".filter.bam
+samtools index -c "$i".filter.bam
 picard MarkDuplicates \
       I="$i".filter.bam \
       O="$i".dupmark.bam \
@@ -58,8 +58,8 @@ cat $Rep.header ${Rep}00 | samtools view -bS - \
 | samtools sort -o ${Rep}.pr1.bam & \
 cat $Rep.header ${Rep}01 | samtools view -bS - \
 | samtools sort -o ${Rep}.pr2.bam; \
-samtools index ${Rep}.pr1.bam & \
-samtools index ${Rep}.pr2.bam; \
+samtools index -c ${Rep}.pr1.bam & \
+samtools index -c ${Rep}.pr2.bam; \
 rm -f ${Rep}0* $Rep.header
 done
 
@@ -74,9 +74,9 @@ out=$TF".bam"
 if [[ $bams =~ ";" ]]; then
 inbams=$(echo $bams | sed -e 's/;/ /g')
 [[ ! -f $out || ! -f "$out.bai" ]] && \
-samtools merge $out $inbams; samtools index $out
+samtools merge $out $inbams; samtools index -c $out
 else
-ln -sf $bams $out && ln -sf $bams".bai" $out".bai";
+ln -sf $bams $out && ln -sf $bams".csi" $out".csi";
 fi
 done
 
@@ -93,8 +93,8 @@ cat $OUT.header ${OUT}00 | samtools view -bS - \
 | samtools sort -o ${OUT}.pr1.bam & \
 cat $OUT.header ${OUT}01 | samtools view -bS - \
 | samtools sort -o ${OUT}.pr2.bam; \
-samtools index ${OUT}.pr1.bam & \
-samtools index ${OUT}.pr2.bam; \
+samtools index -c ${OUT}.pr1.bam & \
+samtools index -c ${OUT}.pr2.bam; \
 rm -f ${OUT}0* $OUT.header
 done
 
