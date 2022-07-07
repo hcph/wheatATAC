@@ -25,7 +25,7 @@ conda install -c bioconda deeptools
 
 conda install -c bioconda bedtools
 
-conda install -c bioconda bedtools
+conda install -c bioconda ucsc-bedtobigbed
 
 conda install r=3.6  ##The verson of R must >=3.6
 
