@@ -20,8 +20,8 @@ for (i in name){
   x<-x[order(x[,1],x[,2],x[,6]),]
   genebody<-length(which((x[,5]==0) & (x[,6]>1500)))
   gene_downstream<-length(which((x[,5] != 0) & (x[,6]>0)))
-  promoter <- length(which(((x[,5]!=0) & (x[,6]>= -4000) & (x[,6] < 0)) | ((x[,5]==0) &x[,6] <= 1500)))
-  intergeric <- length(which((x[,5]!=0) & (x[,6]< -4000)))
+  promoter <- length(which(((x[,5]!=0) & (x[,6]>= -3500) & (x[,6] <= 0)) | ((x[,5]==0) &x[,6] <= 1500)))
+  intergeric <- length(which((x[,5]!=0) & (x[,6]< -3500)))
   re<-t(data.frame(genebody, gene_downstream, promoter, intergeric))
   t<-as.matrix(re)
   names<-c("genebody", "intergenic_downstream", "promoter (-5 kb-1.5kb)", "intergeric_upstream")
