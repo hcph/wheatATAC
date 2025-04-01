@@ -26,7 +26,11 @@ done | tee $dir/FRiP
 
 #bam2bw
 cut -f 3 $dir/meta/macs2.meta | while read i; do
-bamCoverage -b "$i".final.bam -o "$i".bw
+bamCoverage -b "$i".final.bam -o "$i".bw --binSize 20 \
+    --normalizeUsing RPKM \
+    --smoothLength 50 \
+    --effectiveGenomeSize 708735318 \
+    --extendReads
 done
 
 #spp
