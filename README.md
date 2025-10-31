@@ -91,6 +91,8 @@ sh valuation.sh
 
 #The process of data valuation contains file convert for IGV visualization, FRiP and SPOT calculation, TSS enrichment analysis, peak annotation, samples correlation analysis and signal comparasion.
 
+#peak annotaion according to peak summit
+ assign_peaks_summit_to_genes.sh peaks.bed gene.bed output_idr
 
 
 [README.txt](https://github.com/HeChao7021/wheatATAC/files/8139677/README.txt)
